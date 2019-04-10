@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js"></script>
+    <script src="data_generator.js"></script>
+  </head>
+  <body>
+    <script>         
+
+
+
+$(document).ready(function(){
+  var $body = $('body')
+  //create layout for top of page
+  //style upper most portion
+
+  //Show the user new tweets somehow. 
+
+
+  let index = 0;
+  let tweets = streams.home;
+  let users = streams.users;
+  console.log(tweets);
+
+  let $newTweetGenerator = $(`<button/>`).text(`Latest Tweet`);
+  $body.append($newTweetGenerator);
+  
+  $($newTweetGenerator).click(function () {
+
+    for(let i = index; i < tweets.length; i++) {
+      let userName = tweets[i].user;
+      let $newTweet = $('<div></div>').attr(`id`, userName)
+      .text(`@${userName}: ${tweets[i].message}, ${tweets[i][`created_at`]}`)
+      .insertAfter(`button`);
+      
+      $(`#${userName}`).on("click", function () {
+        $('body').empty()
+          let usersStream = users[userName];
+          let specUser = [];
+          console.log(usersStream);
+          usersStream.forEach((userObj) => {
+            specUser.push($('<li>').append(`@${userObj.user}: ${userObj.message}, ${userObj[`created_at`]}`));
+          });
+          specUser.forEach((user) => {
+            $body.append(user);
+          });
+      });
+      index = tweets.length; 
+    }   
+  });
+  // $body.html('');
+
+    // var index = streams.home.length - 1;
+    // while(index >= 0){
+    //   var tweet = streams.home[index];
+;
+    //   $tweet.appendTo($body);
+    //   index -= 1;
+    // }
+        
+});
+
+    </script>
+  </body>
+</html>
